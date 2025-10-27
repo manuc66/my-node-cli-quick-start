@@ -1,0 +1,68 @@
+{
+  "name": "my-node-cli-quick-start",
+  "version": "0.0.0-development",
+  "description": "Template for a Node CLI project in typescript.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "start:dev": "tsx src/index.ts",
+    "dev": "tsx watch src/index.ts",
+    "clean": "rm -rf dist coverage .eslintcache",
+    "prebuild": "npm run clean",
+    "build": "tsc -p .",
+    "postbuild": "npm run validate:build",
+    "validate:build": "test -f dist/index.js || (echo 'Build validation failed' && exit 1)",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
+    "test": "mocha",
+    "test:watch": "mocha --watch",
+    "test:coverage": "c8 --reporter=lcov --reporter=text --exclude=\"test/\" --check-coverage --lines 80 --functions 80 --branches 75 mocha",
+    "test:ci": "c8 --reporter=lcov --reporter=text --exclude=\"test/\" mocha",
+    "precommit": "npm run lint:fix && npm run format && npm run typecheck",
+    "validate": "npm run lint && npm run typecheck && npm run format:check",
+    "ci": "npm run validate && npm run test:ci && npm run build",
+    "prepare": "husky install || true"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "^9.38.0",
+    "@types/chai": "^5.2.3",
+    "@types/config": "^3.3.5",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^24.9.1",
+    "c8": "^10.1.3",
+    "chai": "^6.2.0",
+    "eslint": "^9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.4.0",
+    "husky": "^9.0.0",
+    "lint-staged": "^15.0.0",
+    "mocha": "^11.7.4",
+    "nock": "^14.0.10",
+    "prettier": "^3.6.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.2"
+  },
+  "dependencies": {
+    "config": "^4.1.1",
+    "dotenv": "^16.0.0",
+    "pino": "^10.1.0",
+    "pino-pretty": "^8.1.0",
+    "zod": "^4.1.12"
+  },
+  "packageManager": "yarn@4.5.3"
+}
