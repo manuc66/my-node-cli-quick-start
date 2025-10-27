@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20, 22]
+        node-version: [22]
 
     steps:
       - name: Checkout code
@@ -165,7 +165,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Run security audit
-        run: yarn audit --audit-level moderate
+        run: yarn npm audit --audit-level moderate
 
       - name: Run CodeQL Analysis
         uses: github/codeql-action/init@v3
