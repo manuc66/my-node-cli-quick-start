@@ -10,11 +10,11 @@
     "start": "node dist/index.js",
     "start:dev": "tsx src/index.ts",
     "dev": "tsx watch src/index.ts",
-    "clean": "rm -rf dist coverage .eslintcache",
-    "prebuild": "npm run clean",
+    "clean": "rimraf dist coverage .eslintcache",
+    "prebuild": "pnpm clean",
     "build": "tsc -p .",
-    "postbuild": "npm run validate:build",
-    "validate:build": "test -f dist/index.js || (echo 'Build validation failed' && exit 1)",
+    "postbuild": "pnpm validate:build",
+    "validate:build": "node scripts/validate-build.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -24,9 +24,9 @@
     "test:watch": "mocha --watch",
     "test:coverage": "c8 --reporter=lcov --reporter=text --exclude=\"test/\" --check-coverage --lines 80 --functions 80 --branches 75 mocha",
     "test:ci": "c8 --reporter=lcov --reporter=text --exclude=\"test/\" mocha",
-    "precommit": "npm run lint:fix && npm run format && npm run typecheck",
-    "validate": "npm run lint && npm run typecheck && npm run format:check",
-    "ci": "npm run validate && npm run test:ci && npm run build",
+    "precommit": "pnpm lint:fix && pnpm format && pnpm typecheck",
+    "validate": "pnpm lint && pnpm typecheck && pnpm format:check",
+    "ci": "pnpm validate && pnpm test:ci && pnpm build",
     "prepare": "husky install || true"
   },
   "files": [
@@ -53,6 +53,7 @@
     "mocha": "^11.7.4",
     "nock": "^14.0.10",
     "prettier": "^3.6.2",
+    "rimraf": "^6.0.1",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.2"
@@ -64,5 +65,5 @@
     "pino-pretty": "^8.1.0",
     "zod": "^4.1.12"
   },
-  "packageManager": "yarn@4.5.3"
+  "packageManager": "pnpm@9.0.0"
 }
