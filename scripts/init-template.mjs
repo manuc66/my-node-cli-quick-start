@@ -14,6 +14,8 @@ const scriptFilePath = fileURLToPath(import.meta.url);
 
 // Check for --dry-run or --test flag
 const isDryRun = process.argv.includes('--dry-run') || process.argv.includes('--test');
+const projectNameArg = process.argv.find(arg => arg.startsWith('--name='));
+const hasNonInteractiveMode = !!projectNameArg;
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -64,25 +66,35 @@ async function main() {
   if (isDryRun) {
     console.log('🧪 DRY-RUN MODE (no changes will be made)\n');
   }
+  if (hasNonInteractiveMode) {
+    console.log('🤖 NON-INTERACTIVE MODE\n');
+  }
   console.log('This will reinitialize your project from the template.\n');
 
   // Get project name
-  const defaultName = 'my-awesome-cli';
-  const projectName = await question(
-    `Enter your project name (${defaultName}): `
-  );
-  const normalizedName = normalizePackageName(
-    projectName || defaultName
-  );
+  let normalizedName;
+  if (hasNonInteractiveMode) {
+    normalizedName = normalizePackageName(projectNameArg.split('=')[1]);
+  } else {
+    const defaultName = 'my-awesome-cli';
+    const projectName = await question(
+      `Enter your project name (${defaultName}): `
+    );
+    normalizedName = normalizePackageName(
+      projectName || defaultName
+    );
+  }
 
   console.log(`\n📦 Project name: ${normalizedName}`);
 
-  // Confirm
-  const confirm = await question('\nProceed with initialization? (y/N): ');
-  if (confirm.toLowerCase() !== 'y') {
-    console.log('❌ Cancelled.');
-    rl.close();
-    return;
+  // Confirm (skip in non-interactive mode)
+  if (!hasNonInteractiveMode) {
+    const confirm = await question('\nProceed with initialization? (y/N): ');
+    if (confirm.toLowerCase() !== 'y') {
+      console.log('❌ Cancelled.');
+      rl.close();
+      return;
+    }
   }
 
   try {

@@ -2,7 +2,16 @@
 
 A modern TypeScript-based Node.js CLI project template with best practices for development, testing, and deployment.
 
-## 📋 Features
+## � Getting Started
+
+👉 **See [QUICKSTART.md](QUICKSTART.md) for 3 different ways to initialize your project!**
+
+Quick overview:
+- **Option 1**: Use GitHub's "Use this template" button (recommended)
+- **Option 2**: One-command bootstrap from anywhere
+- **Option 3**: Manual clone and initialize (for learning)
+
+## �📋 Features
 
 - **TypeScript** - Full type safety right out of the box
 - **Modern Tooling** - pnpm, ESLint, Prettier, tsx
@@ -14,47 +23,42 @@ A modern TypeScript-based Node.js CLI project template with best practices for d
 
 ## 🚀 Getting Started from Template
 
-If you cloned this as a template, initialize your new project:
+👉 **[See QUICKSTART.md](QUICKSTART.md) for detailed instructions on 3 different initialization methods**
 
+**Quick reference:**
+
+### Option 1: GitHub Native (Recommended)
 ```bash
+# Use "Use this template" button on GitHub.com
+git clone https://github.com/YOUR_USERNAME/your-new-project.git
+cd your-new-project
 pnpm install
 pnpm init
 ```
 
-This script will:
-1. ✅ Reset the Git repository (clean history)
-2. ✅ Rename your project
-3. ✅ Reset README.md with a fresh template
-4. ✅ Update package.json with new metadata
-5. ✅ Create an initial commit
-6. ✅ Self-delete after completion
-
-### Testing the Initialization Script
-
-Before running the real initialization, you can test it with the `--dry-run` flag:
-
+### Option 2: One-Command Bootstrap
 ```bash
-# No changes will be made, just a preview
-pnpm init -- --dry-run
+node scripts/bootstrap.mjs my-awesome-project
+cd my-awesome-project
+pnpm dev
 ```
+*(Requires updating TEMPLATE_REPO in bootstrap.mjs first)*
 
-This allows you to see what will happen without actually modifying anything. Run it as many times as needed to verify!
-
-### Running the Real Initialization
-
-Once you're ready to initialize:
-
+### Option 3: Manual Workflow  
 ```bash
+git clone --depth 1 https://github.com/YOUR_USERNAME/my-node-cli-quick-start.git my-project
+cd my-project
+pnpm install
 pnpm init
 ```
 
-Then start developing:
-
+**Testing before commit (all methods):**
 ```bash
-pnpm dev      # Watch mode development
-pnpm build    # Build for production
-pnpm test     # Run tests
+pnpm init -- --dry-run  # Preview changes (repeatable)
+pnpm init               # Actually initialize
 ```
+
+See [QUICKSTART.md](QUICKSTART.md) for detailed explanations and more options!
 
 ## 📁 Project Structure
 
@@ -190,3 +194,7 @@ MIT - See LICENSE file for details
 ---
 
 **Start building your CLI!** 🎉
+
+## 🛠️ For Template Maintainers
+
+See [TEMPLATE-SETUP.md](TEMPLATE-SETUP.md) for setup instructions and checklist.

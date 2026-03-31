@@ -8,6 +8,7 @@
   "bin": "dist/index.js",
   "scripts": {
     "init": "node scripts/init-template.mjs",
+    "bootstrap": "node scripts/bootstrap.mjs",
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
     "test": "mocha",
