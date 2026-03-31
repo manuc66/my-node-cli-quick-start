@@ -1,4 +1,5 @@
 import z from "zod";
+import { AppError } from "./errors.js";
 
 /**
  * Validation schemas for CLI inputs
@@ -18,7 +19,7 @@ export const validateInputs = {
     const result = helloOptionsSchema.safeParse(options);
     if (!result.success) {
       const errors = z.prettifyError(result.error);
-      throw new Error(`Validation error: ${errors}`);
+      throw AppError.validation(errors, result.error);
     }
     return result.data;
   },

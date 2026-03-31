@@ -4,6 +4,7 @@
 import "dotenv/config";
 import { getLoggerForFile } from "./logger.js";
 import { runCli } from "./cli.js";
+import { handleError } from "./errorHandler.js";
 
 const logger = getLoggerForFile(import.meta.url);
 
@@ -12,8 +13,8 @@ async function main() {
     logger.debug({ env: process.env.NODE_ENV }, "Environment detected");
     await runCli(process.argv);
   } catch (error) {
-    logger.error(error);
-    process.exit(1);
+    const exitCode = handleError(error, logger);
+    process.exit(exitCode);
   }
 }
 

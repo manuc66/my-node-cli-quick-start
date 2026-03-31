@@ -1,6 +1,7 @@
 import { Command } from "commander";
 import { getLoggerForFile } from "./logger.js";
 import { validateInputs, type CliOptions } from "./validation.js";
+import { AppError } from "./errors.js";
 
 const logger = getLoggerForFile(import.meta.url);
 
@@ -29,8 +30,9 @@ export function createProgram(): Command {
           logger.debug("Verbose mode enabled");
         }
       } catch (error) {
-        logger.error(error);
-        process.exit(1);
+        const appError = AppError.from(error);
+        logger.error({ code: appError.code }, appError.message);
+        process.exit(appError.exitCode);
       }
     });
 
