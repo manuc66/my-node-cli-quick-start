@@ -15,7 +15,7 @@
     "check": "eslint . && tsc --noEmit && prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
     "format": "eslint . --fix && prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "clean": "rimraf dist coverage .eslintcache",
-    "build": "pnpm clean && tsc -p . && node scripts/validate-build.mjs",
+    "build": "pnpm -s clean && tsc -p . && node scripts/validate-build.mjs",
     "ci": "pnpm check && pnpm test:coverage && pnpm build",
     "prepare": "husky install || true"
   },
@@ -49,6 +49,7 @@
     "typescript-eslint": "^8.46.2"
   },
   "dependencies": {
+    "commander": "^12.1.0",
     "config": "^4.1.1",
     "dotenv": "^16.0.0",
     "pino": "^10.1.0",
