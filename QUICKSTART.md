@@ -22,16 +22,16 @@ cd your-new-project
 
 # Install and initialize
 pnpm install
-pnpm init
+pnpm setup
 ```
 
 ### Visual test before committing:
 ```bash
 # Preview what will happen (can run multiple times)
-pnpm init -- --dry-run
+pnpm setup -- --dry-run
 
 # Actually initialize when ready
-pnpm init
+pnpm setup
 ```
 
 **Pros:** 
@@ -53,15 +53,21 @@ pnpm init
 
 ### Commands:
 
-**From your GitHub repo (via curl):**
+**If you have this template locally (or cloned it):**
 ```bash
-# Make sure to update TEMPLATE_REPO in scripts/bootstrap.mjs first!
-node bootstrap.mjs my-awesome-project
+# Update TEMPLATE_REPO in scripts/bootstrap.mjs first
+node scripts/bootstrap.mjs my-awesome-project
+cd my-awesome-project
+pnpm dev
 ```
 
-**Or directly from the internet (if you host bootstrap.mjs):**
+**Cross-platform alternative (git + pnpm):**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/my-node-cli-quick-start/main/scripts/bootstrap-init.sh | bash -s my-awesome-project
+# Works on Windows, macOS, Linux
+git clone --depth 1 https://github.com/YOUR_USERNAME/my-node-cli-quick-start.git my-awesome-project
+cd my-awesome-project
+pnpm install
+pnpm setup
 ```
 
 ### What it does automatically:
@@ -98,16 +104,16 @@ cd my-project
 pnpm install
 
 # Initialize your project
-pnpm init
+pnpm setup
 ```
 
 ### Optional: Preview first
 ```bash
 # Test without changes (can repeat many times)
-pnpm init -- --dry-run
+pnpm setup -- --dry-run
 
 # When ready, initialize for real
-pnpm init
+pnpm setup
 ```
 
 **Pros:**
@@ -138,11 +144,16 @@ If you're maintaining this template and want Option 2 to work:
    const TEMPLATE_REPO = 'https://github.com/YOUR_USERNAME/my-node-cli-quick-start.git';
    ```
 
-2. **(Optional) Create a shell wrapper** `bootstrap-init.sh`:
+2. **Test bootstrap locally:**
    ```bash
-   #!/bin/bash
-   npx git-clone-https-github-your-username-my-node-cli-quick-start-main-scripts-bootstrap-mjs -- $1
+   node scripts/bootstrap.mjs test-project
+   cd test-project
+   pnpm dev
    ```
+
+The bootstrap script is cross-platform (Windows, macOS, Linux) and uses Node.js exclusively.
+
+**Note:** The initialization command is `pnpm setup` (not `pnpm init`) to avoid conflict with pnpm's native init command.
 
 ---
 

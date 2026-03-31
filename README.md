@@ -33,7 +33,7 @@ Quick overview:
 git clone https://github.com/YOUR_USERNAME/your-new-project.git
 cd your-new-project
 pnpm install
-pnpm init
+pnpm setup
 ```
 
 ### Option 2: One-Command Bootstrap
@@ -49,13 +49,13 @@ pnpm dev
 git clone --depth 1 https://github.com/YOUR_USERNAME/my-node-cli-quick-start.git my-project
 cd my-project
 pnpm install
-pnpm init
+pnpm setup
 ```
 
 **Testing before commit (all methods):**
 ```bash
-pnpm init -- --dry-run  # Preview changes (repeatable)
-pnpm init               # Actually initialize
+pnpm setup -- --dry-run  # Preview changes (repeatable)
+pnpm setup               # Actually initialize
 ```
 
 See [QUICKSTART.md](QUICKSTART.md) for detailed explanations and more options!

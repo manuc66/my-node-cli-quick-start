@@ -46,11 +46,16 @@ If your GitHub Actions reference specific branch/repo names, update:
 # On GitHub.com: Click "Use this template" 
 # → Create a test repo
 # → Clone and verify it works
+git clone https://github.com/YOUR_USERNAME/test-template-repo.git
+cd test-template-repo
+pnpm install
+pnpm setup
+pnpm dev
 ```
 
 ### Test Option 2 (Bootstrap)
 ```bash
-# From this repo directory
+# Works on Windows, macOS, Linux
 node scripts/bootstrap.mjs test-project
 cd test-project
 pnpm dev
@@ -62,7 +67,7 @@ pnpm dev
 git clone --depth 1 https://github.com/YOUR_USERNAME/YOUR_REPO.git test-manual
 cd test-manual
 pnpm install
-pnpm init
+pnpm setup
 # Verify it works, then delete test-manual
 ```
 
@@ -87,7 +92,7 @@ When you improve the template, remember:
 - [ ] `QUICKSTART.md` is up-to-date
 - [ ] `README.md` links to QUICKSTART.md
 - [ ] CI/CD workflows work on new clone
-- [ ] `pnpm init` works in all modes (interactive, --dry-run, --name=)
+- [ ] `pnpm setup` works in all modes (interactive, --dry-run, --name=)
 - [ ] `pnpm bootstrap` creates working projects
 - [ ] Git history properly reset after initialization
 - [ ] README gets reset to fresh template
@@ -99,7 +104,11 @@ When you improve the template, remember:
 - Check TEMPLATE_REPO URL in `bootstrap.mjs`
 - Ensure repo is public (or provide auth)
 
-**`pnpm init` hangs:**
+**`pnpm setup` command not found:**
+- Make sure you ran `pnpm install` first to install dependencies
+- Check that package.json has the `setup` script defined
+
+**`pnpm setup` hangs:**
 - It might be waiting for user input if not using proper flags
 - Use `--name=projectname` for non-interactive mode
 

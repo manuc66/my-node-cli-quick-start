@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
+import { rimraf } from 'rimraf';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -50,7 +51,10 @@ async function bootstrap() {
 
     // 3. Remove .git to reset history
     console.log('3️⃣  Resetting Git history...');
-    execSync('rm -r .git', { cwd: projectPath, stdio: 'pipe' });
+    const gitDir = path.join(projectPath, '.git');
+    if (fs.existsSync(gitDir)) {
+      await rimraf(gitDir);
+    }
     execSync('git init', { cwd: projectPath, stdio: 'pipe' });
     execSync('git config user.email "you@example.com"', {
       cwd: projectPath,

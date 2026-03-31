@@ -5,6 +5,7 @@ import path from 'path';
 import { execSync } from 'child_process';
 import readline from 'readline';
 import { fileURLToPath } from 'url';
+import { rimraf } from 'rimraf';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
@@ -103,8 +104,9 @@ async function main() {
     // 1. Reset Git
     console.log('1️⃣  Resetting Git repository...');
     if (!isDryRun) {
-      if (fs.existsSync(path.join(rootDir, '.git'))) {
-        execSync('rm -r .git', { cwd: rootDir, stdio: 'pipe' });
+      const gitDir = path.join(rootDir, '.git');
+      if (fs.existsSync(gitDir)) {
+        await rimraf(gitDir);
       }
       execSync('git init', { cwd: rootDir, stdio: 'pipe' });
       execSync('git config user.email "you@example.com"', {
@@ -168,7 +170,7 @@ async function main() {
     if (isDryRun) {
       console.log('✨ Dry-run complete! No changes were made.\n');
       console.log('Run without --dry-run to apply changes:\n');
-      console.log('  pnpm init\n');
+      console.log('  pnpm setup\n');
     } else {
       console.log('✨ Initialization complete!\n');
       console.log(`Your new project "${normalizedName}" is ready to use.`);
